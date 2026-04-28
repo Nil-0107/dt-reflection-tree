@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Daily Reflection Tree — DT Fellowship Assignment",
+    "axes": {
+      "axis1": "Locus of Control (Victim vs Victor)",
+      "axis2": "Orientation (Contribution vs Entitlement)",
+      "axis3": "Radius of Concern (Self vs Altrocentric)"
+    }
+  },
+  "start": "START",
+  "nodes": {
+    "START": {
+      "id": "START",
+      "type": "start",
+      "text": "Good evening.\n\nThis is a 5-minute reflection on your day.\nNo right answers. Just an honest look at how you showed up.\n\nLet's begin.",
+      "next": "A1_OPEN"
+    },
+    "A1_OPEN": {
+      "id": "A1_OPEN",
+      "type": "question",
+      "text": "AXIS 1 — AGENCY\n\nIf today were a weather report, it would be...",
+      "options": [
+        {"label": "Sunny — things mostly went my way", "next": "A1_D1", "signal": "axis1:internal"},
+        {"label": "Cloudy — a mixed bag", "next": "A1_D1", "signal": "axis1:internal"},
+        {"label": "Stormy — a lot hit me today", "next": "A1_D1", "signal": "axis1:external"},
+        {"label": "Foggy — I felt stuck or confused", "next": "A1_D1", "signal": "axis1:external"}
+      ]
+    },
+    "A1_D1": {
+      "id": "A1_D1",
+      "type": "decision",
+      "routing": [
+        {"condition": "answer_in", "node": "A1_OPEN", "values": ["Sunny — things mostly went my way", "Cloudy — a mixed bag"], "next": "A1_Q_HIGH"},
+        {"condition": "answer_in", "node": "A1_OPEN", "values": ["Stormy — a lot hit me today", "Foggy — I felt stuck or confused"], "next": "A1_Q_LOW"}
+      ]
+    },
+    "A1_Q_HIGH": {
+      "id": "A1_Q_HIGH",
+      "type": "question",
+      "text": "You said it felt like \"{A1_OPEN}\".\n\nWhen something went well today, what made it happen?",
+      "options": [
+        {"label": "I had prepared well for it", "next": "A1_D2", "signal": "axis1:internal"},
+        {"label": "I adapted in the moment", "next": "A1_D2", "signal": "axis1:internal"},
+        {"label": "Luck or timing was on my side", "next": "A1_D2", "signal": "axis1:external"}
+      ]
+    },
+    "A1_Q_LOW": {
+      "id": "A1_Q_LOW",
+      "type": "question",
+      "text": "You said it felt like \"{A1_OPEN}\".\n\nWhen things got difficult, what was your first instinct?",
+      "options": [
+        {"label": "Focus on what I could control", "next": "A1_D2", "signal": "axis1:internal"},
+        {"label": "Wait for things to improve", "next": "A1_D2", "signal": "axis1:external"},
+        {"label": "Feel stuck or overwhelmed", "next": "A1_D2", "signal": "axis1:external"}
+      ]
+    },
+    "A1_D2": {
+      "id": "A1_D2",
+      "type": "decision",
+      "routing": [
+        {"condition": "dominant", "axis": "axis1", "pole": "internal", "next": "A1_R_INT"},
+        {"condition": "dominant", "axis": "axis1", "pole": "external", "next": "A1_R_EXT"},
+        {"condition": "default", "next": "A1_R_INT"}
+      ]
+    },
+    "A1_R_INT": {
+      "id": "A1_R_INT",
+      "type": "reflection",
+      "text": "You see your agency. Even on a rough road, you stayed in the driver's seat. That is the core of a growth mindset.",
+      "signal": "axis1:internal",
+      "next": "BRIDGE_1_2"
+    },
+    "A1_R_EXT": {
+      "id": "A1_R_EXT",
+      "type": "reflection",
+      "text": "A heavy day pulls attention outward to circumstances. Remember: you always have a choice in how you respond.",
+      "signal": "axis1:external",
+      "next": "BRIDGE_1_2"
+    },
+    "BRIDGE_1_2": {
+      "id": "BRIDGE_1_2",
+      "type": "bridge",
+      "text": "Now let's shift from how you handled things to what you gave today.",
+      "next": "A2_OPEN"
+    },
+    "A2_OPEN": {
+      "id": "A2_OPEN",
+      "type": "question",
+      "text": "AXIS 2 — CONTRIBUTION\n\nWhich of these moments from today feels most like yours?",
+      "options": [
+        {"label": "I helped someone with an unassigned task", "next": "A2_D1", "signal": "axis2:contribution"},
+        {"label": "I shared knowledge with a colleague", "next": "A2_D1", "signal": "axis2:contribution"},
+        {"label": "I felt my work wasn't recognized enough", "next": "A2_D1", "signal": "axis2:entitlement"},
+        {"label": "I did exactly what was required", "next": "A2_D1", "signal": "axis2:entitlement"}
+      ]
+    },
+    "A2_D1": {
+      "id": "A2_D1",
+      "type": "decision",
+      "routing": [
+        {"condition": "dominant", "axis": "axis2", "pole": "contribution", "next": "A2_R_CONTRIB"},
+        {"condition": "dominant", "axis": "axis2", "pole": "entitlement", "next": "A2_R_ENTITLE"},
+        {"condition": "default", "next": "A2_R_CONTRIB"}
+      ]
+    },
+    "A2_R_CONTRIB": {
+      "id": "A2_R_CONTRIB",
+      "type": "reflection",
+      "text": "You practiced 'Organizational Citizenship.' Giving beyond the script is what builds real culture.",
+      "next": "BRIDGE_2_3"
+    },
+    "A2_R_ENTITLE": {
+      "id": "A2_R_ENTITLE",
+      "type": "reflection",
+      "text": "Notice the gap between your expectations and reality. That gap is where growth happens.",
+      "next": "BRIDGE_2_3"
+    },
+    "BRIDGE_2_3": {
+      "id": "BRIDGE_2_3",
+      "type": "bridge",
+      "text": "Finally, let's zoom out to the people around you.",
+      "next": "A3_OPEN"
+    },
+    "A3_OPEN": {
+      "id": "A3_OPEN",
+      "type": "question",
+      "text": "AXIS 3 — RADIUS\n\nWhen you think about today's biggest challenge, who was in the frame?",
+      "options": [
+        {"label": "Mostly just me", "next": "A3_D1", "signal": "axis3:self"},
+        {"label": "My immediate team", "next": "A3_D1", "signal": "axis3:altrocentric"},
+        {"label": "The end user or customer", "next": "A3_D1", "signal": "axis3:altrocentric"}
+      ]
+    },
+    "A3_D1": {
+      "id": "A3_D1",
+      "type": "decision",
+      "routing": [
+        {"condition": "dominant", "axis": "axis3", "pole": "altrocentric", "next": "A3_R_ALTRO"},
+        {"condition": "dominant", "axis": "axis3", "pole": "self", "next": "A3_R_SELF"},
+        {"condition": "default", "next": "A3_R_ALTRO"}
+      ]
+    },
+    "A3_R_ALTRO": {
+      "id": "A3_R_ALTRO",
+      "type": "reflection",
+      "text": "Self-transcendence is the shift from 'Me' to 'Us.' It’s the most reliable source of meaning.",
+      "next": "SUMMARY"
+    },
+    "A3_R_SELF": {
+      "id": "A3_R_SELF",
+      "type": "reflection",
+      "text": "Focusing inward is natural on hard days, but widening the frame often provides relief.",
+      "next": "SUMMARY"
+    },
+    "SUMMARY": {
+      "id": "SUMMARY",
+      "type": "summary",
+      "text": "YOUR REFLECTION\n---\nAgency: {axis1_label}\nContribution: {axis2_label}\nRadius: {axis3_label}\n\n{closing}",
+      "next": "END"
+    },
+    "END": {
+      "id": "END",
+      "type": "end",
+      "text": "Reflection complete. See you tomorrow."
+    }
+  }
+}

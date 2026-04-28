@@ -7,9 +7,9 @@
   Dataset   :  Custom-authored tree (29 nodes, 3 axes, 0 LLM at runtime)
                Embedded below as TREE_JSON — also saveable as .json file
   Stack     :  Pure Python 3.8+  |  Zero external dependencies
-  Run       :  python deterministic_decision_tree.py
-  Run (demo):  python deterministic_decision_tree.py --demo victor
-               python deterministic_decision_tree.py --demo victim
+  Run       :  python reflection_agent.py
+  Run (demo):  python reflection_agent.py --demo victor
+               python reflection_agent.py --demo victim
 
   Axes encoded in the tree
   ─────────────────────────────────────────────────────────────────────────
