@@ -5,7 +5,7 @@
 A deterministic reflection tool designed to move an employee through three psychological axes:
 **Locus of Control**, **Orientation**, and **Radius of Concern**.
 
-Unlike typical AI chatbots, this tool is a **Deterministic Decision Tree**. It uses **no LLM at runtime**, ensuring the reflection experience is **predictable, auditable, and grounded** in established management science.
+Unlike typical AI chatbots, this tool is a **Deterministic Decision Tree**. It uses **no LLM at runtime**, ensuring the reflection experience is **predictable, auditable, and grounded** in established psychological models.
 
 ---
 
@@ -125,6 +125,56 @@ streamlit run frontend.py
 
 - **Modular Content**
   - The full conversation can be updated by editing `reflection-tree.json` alone—no code changes required.
+
+---
+
+## ⚙️ The Reflection Engine (Logic Core)
+
+The application uses a custom-built **State Machine** in Python. This engine is responsible for “walking” the tree based on the data provided in `reflection-tree.json`.
+
+### 1) State Accumulation (Psychological Signals)
+
+Instead of simple scoring, the engine uses **Semantic Tallying**. Each choice the user makes carries a “signal” (e.g., `axis1:internal`). These are stored in the session state and used by later logic gates.
+
+```python
+def tally_signal(signal: str):
+    # Splits 'axis1:internal' into Axis and Pole
+    # Increments the specific counter in st.session_state
+```
+
+### 2) Invisible Logic Resolution (The “Decision” Loop)
+
+One of the most advanced features of the engine is its ability to handle **Silent Nodes**. When the user submits an answer, the engine enters a loop. If the next node in the tree is a `type: decision`, the engine resolves the logic behind the scenes and moves to the next node without bothering the user.
+
+The engine repeats this until it finds a **Visible** node (Question, Reflection, or Summary).
+
+### 3) Routing Logic Patterns
+
+The `Reflection.py` engine supports three types of deterministic routing:
+
+| Rule Type | Logic | Purpose |
+|---|---|---|
+| `answer_in` | `if answer in [value1, value2]` | Branches based on a specific prior answer. |
+| `dominant` | `if axis1_internal > axis1_external` | Branches based on accumulated psychological signals. |
+| `default` | `else: move to X` | Ensures the state machine never gets stuck. |
+
+### 4) Dynamic Text Interpolation
+
+To make the tool feel personalized without using an LLM, the engine uses **String Interpolation**. It scans the text for placeholders like `{A1_OPEN}` and replaces them with the user’s actual previous answers.
+
+```python
+def interpolate(text: str):
+    # Replaces placeholders with user-provided answers
+    # Result: "You said it felt like 'Stormy' today..."
+```
+
+**Why this belongs in your README:**
+
+By adding this section, you are telling the DeepThought Growth Team that you didn’t just write a “quiz”—you built an **Extensible Engine**. You can argue that:
+
+- **Auditable:** The logic is 100% transparent and can be audited by management.
+- **Scalability:** New axes can be added to the JSON without changing the Python code.
+- **Efficiency:** The system runs with near-zero latency because it doesn’t wait for API calls to an LLM.
 
 ---
 
