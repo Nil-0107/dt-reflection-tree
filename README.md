@@ -180,4 +180,5 @@ By adding this section, you are telling the DeepThought Growth Team that you did
 
 ## Notes
 
-- This project is deterministic by design; if you want to extend it with probabilistic or LLM-driven behavior, keep the decision-tree contract intact so the system remains testable and auditable.
+- This project is deterministic by design;
+- 
