@@ -2,10 +2,12 @@
 
 **DT Fellowship Assignment | Practice-Driven Growth Management System (PDGMS)**
 
+Live app: https://dt-reflection-tree-jhnatnvvocnptalz8n3jbp.streamlit.app/
+
 A deterministic reflection tool designed to move an employee through three psychological axes:
 **Locus of Control**, **Orientation**, and **Radius of Concern**.
 
-Unlike typical AI chatbots, this tool is a **Deterministic Decision Tree**. It uses **no LLM at runtime**, ensuring the reflection experience is **predictable, auditable, and grounded** in established psychological models.
+Unlike typical AI chatbots, this tool is a **Deterministic Decision Tree**. It uses **no LLM at runtime**, ensuring the reflection experience is **predictable, auditable, and grounded** in establis[...]
 
 ---
 
@@ -134,7 +136,7 @@ The application uses a custom-built **State Machine** in Python. This engine is 
 
 ### 1) State Accumulation (Psychological Signals)
 
-Instead of simple scoring, the engine uses **Semantic Tallying**. Each choice the user makes carries a “signal” (e.g., `axis1:internal`). These are stored in the session state and used by later logic gates.
+Instead of simple scoring, the engine uses **Semantic Tallying**. Each choice the user makes carries a “signal” (e.g., `axis1:internal`). These are stored in the session state and used by lat[...]
 
 ```python
 def tally_signal(signal: str):
@@ -144,7 +146,7 @@ def tally_signal(signal: str):
 
 ### 2) Invisible Logic Resolution (The “Decision” Loop)
 
-One of the most advanced features of the engine is its ability to handle **Silent Nodes**. When the user submits an answer, the engine enters a loop. If the next node in the tree is a `type: decision`, the engine resolves the logic behind the scenes and moves to the next node without bothering the user.
+One of the most advanced features of the engine is its ability to handle **Silent Nodes**. When the user submits an answer, the engine enters a loop. If the next node in the tree is a `type: deci[...]
 
 The engine repeats this until it finds a **Visible** node (Question, Reflection, or Summary).
 
@@ -160,7 +162,7 @@ The `Reflection.py` engine supports three types of deterministic routing:
 
 ### 4) Dynamic Text Interpolation
 
-To make the tool feel personalized without using an LLM, the engine uses **String Interpolation**. It scans the text for placeholders like `{A1_OPEN}` and replaces them with the user’s actual previous answers.
+To make the tool feel personalized without using an LLM, the engine uses **String Interpolation**. It scans the text for placeholders like `{A1_OPEN}` and replaces them with the user’s actual p[...]
 
 ```python
 def interpolate(text: str):
